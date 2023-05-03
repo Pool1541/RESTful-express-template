@@ -27,21 +27,6 @@ class Server {
 
   routes() {
     this.app.use(this.usersPath, require("../routes/user.routes"));
-    // this.app.get("/api", (req, res) => {
-    //   res.status(200).json({
-    //     type: "get",
-    //   });
-    // });
-    // this.app.delete("/api", (req, res) => {
-    //   res.json({
-    //     type: "delete",
-    //   });
-    // });
-    // this.app.post("/api", (req, res) => {
-    //   res.json({
-    //     type: "post",
-    //   });
-    // });
   }
 
   start() {
