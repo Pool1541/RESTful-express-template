@@ -6,7 +6,16 @@ const {
   userPOST,
   userPUT,
 } = require("../controllers/user.controller");
-const { validateInputs } = require("../middlewares/validate-inputs");
+const {
+  validateInputs,
+  validateJWT,
+  isAdminRole,
+  hasRole,
+} = require("../middlewares/");
+
+const {} = require("../middlewares/validate-jwt");
+const {} = require("../middlewares/validate-role");
+
 const {
   isValidRole,
   emailExists,
@@ -20,6 +29,9 @@ router.get("/", userGET);
 router.delete(
   "/:id",
   [
+    validateJWT,
+    isAdminRole,
+    // hasRole("ADMIN", "USER"),
     check("id", "This id is not valid").isMongoId(),
     check("id").custom(idExists),
     validateInputs,
