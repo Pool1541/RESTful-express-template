@@ -20,7 +20,7 @@ const login = async (req, res = response) => {
     // Verificar la contraseña
     const isValidPassword = bcryptjs.compareSync(password, user.password);
     if (!isValidPassword) {
-      return res.status(400).json({ msg: "Password is not valid" });
+      return res.status(400).json({ msg: "Wrong password" });
     }
     // Genear JWT
 
