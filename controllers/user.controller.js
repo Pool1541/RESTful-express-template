@@ -39,7 +39,6 @@ const userPOST = async (req = request, res = response) => {
 
 const userDelete = async (req, res = response) => {
   const { id } = req.params;
-  const authenticatedUser = req.user;
 
   // Borramos el usuario fisicamente de la base de datos
   // const user = await User.findByIdAndDelete(id);
@@ -49,7 +48,6 @@ const userDelete = async (req, res = response) => {
 
   res.json({
     user,
-    authenticatedUser,
   });
 };
 

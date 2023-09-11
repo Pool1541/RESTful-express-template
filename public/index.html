@@ -3,10 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ACCESO DENEGADO</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="Cross-Origin-Opener-Policy" content="same-origin; allow-popups"> -->
+    <title>Google sign-in</title>
   </head>
   <body>
-    <h1>ACCESO DENEGADO</h1>
-  </body>
+    <h1>Inicia sesión con google</h1>
+    <div id="g_id_onload"
+    data-client_id="223834286296-grc5i6vgio6bk4omfrqhs7u6i4vefbtn.apps.googleusercontent.com"
+    data-context="signin"
+    data-ux_mode="popup"
+    data-callback="handleCredentialResponse"
+    data-auto_prompt="false">
+    </div>
+
+    <div class="g_id_signin"
+        data-type="standard"
+        data-shape="rectangular"
+        data-theme="outline"
+        data-text="continue_with"
+        data-size="large"
+        data-locale="es-419"
+        data-logo_alignment="left">
+    </div>
+
+  <script src="https://accounts.google.com/gsi/client" async></script>
+  <script>
+    function handleCredentialResponse(credentials) {
+      const { credential } = credentials; 
+      const url = (window.location.hostname.includes('localhost')) ? 'http://localhost:8080/api/auth/google' : 'http://mibackend.com/api/auth/google'
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({
+          id_token: credential
+        })
+      }
+      fetch(url, options).then(res => res.json()).then(data => console.log('Nuestro server : ', data)).catch(console.log)
+    }
+  </script>
 </html>
