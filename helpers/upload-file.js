@@ -1,10 +1,11 @@
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
+const { validateAndCreatePath } = require('./validate-pathName');
 
 const validateAndUploadFile = (
   files,
   validExtensions = ['png', 'jpeg', 'jpg', 'gif'],
-  pathName = ''
+  folderName = ''
 ) => {
   return new Promise((resolve, reject) => {
     const { file } = files;
@@ -19,8 +20,8 @@ const validateAndUploadFile = (
 
     // Crear un nombre único para el archivo
     const tempName = uuidv4() + '.' + extension;
-    const uploadPath = path.join(__dirname, '../uploads/', pathName, tempName);
-    console.log(uploadPath);
+    const absolutePath = validateAndCreatePath('../uploads/');
+    const uploadPath = path.join(absolutePath, folderName, tempName);
 
     file.mv(uploadPath, (error) => {
       if (error) {
